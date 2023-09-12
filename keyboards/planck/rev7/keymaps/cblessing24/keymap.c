@@ -16,12 +16,13 @@
 
 #include QMK_KEYBOARD_H
 
-enum planck_layers { _QWERTY, _COLEMAK, _DVORAK, _LOWER, _RAISE, _PLOVER, _ADJUST };
+enum planck_layers { _QWERTY, _COLEMAK, _DVORAK, _LOWER, _RAISE, _PLOVER, _ADJUST, _SYMBOL };
 
-enum planck_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, PLOVER, BACKLIT, EXT_PLV };
+enum planck_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, PLOVER, BACKLIT, EXT_PLV, SS_SS, SS_AE, SS_OE, SS_UE };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define SYMBOL OSL(_SYMBOL)
 
 /* clang-format off */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -40,8 +41,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,    KC_Y,   KC_U,               KC_I,               KC_O,               KC_P,                  KC_BSPC,
     KC_ESC,  MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,    KC_H,   MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L), MT(MOD_RGUI, KC_SCLN), KC_QUOT,
-    KC_APP,  KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,    KC_N,   KC_M,               KC_COMM,            KC_DOT,             KC_SLSH,               KC_ENT,
-    BACKLIT, _______,            _______,            _______,            LOWER,              KC_RSFT, KC_SPC, RAISE,              KC_LEFT,            KC_DOWN,            KC_UP,                 KC_RGHT
+    _______, KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,    KC_N,   KC_M,               KC_COMM,            KC_DOT,             KC_SLSH,               KC_ENT,
+    BACKLIT, _______,            _______,            SYMBOL,             LOWER,              KC_RSFT, KC_SPC, RAISE,              KC_LEFT,            KC_DOWN,            KC_UP,                 KC_RGHT
+),
+
+[_SYMBOL] = LAYOUT_planck_grid(
+    _______, _______, _______, _______, _______, _______, _______, SS_UE, _______, SS_OE, _______, _______,
+    _______, SS_AE, SS_SS, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Colemak
@@ -167,6 +175,30 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case SS_SS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_APP) "ss");
+            }
+            return false;
+            break;
+        case SS_AE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_APP) "a\"");
+            }
+            return false;
+            break;
+        case SS_OE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_APP) "o\"");
+            }
+            return false;
+            break;
+        case SS_UE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_APP) "u\"");
+            }
+            return false;
+            break;
         case QWERTY:
             if (record->event.pressed) {
                 print("mode just switched to qwerty and this is a huge string\n");
