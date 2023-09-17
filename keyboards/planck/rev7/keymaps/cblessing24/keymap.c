@@ -22,7 +22,6 @@ enum planck_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, PLOVER, BACKLIT, EX
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-#define SYMBOL OSL(_SYMBOL)
 
 /* clang-format off */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -39,10 +38,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
-    _______, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,    KC_Y,              KC_U,                KC_I,               KC_O,               KC_P,                  KC_BSPC,
-    KC_ESC,  MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,    KC_H,              MT(MOD_RSFT, KC_J),  MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L), MT(MOD_RGUI, KC_SCLN), KC_QUOT,
-    _______, KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,    KC_N,              KC_M,                KC_COMM,            KC_DOT,             KC_SLSH,               _______,
-    _______, _______,            _______,            SYMBOL,             LT(_LOWER, KC_TAB), KC_RSFT, LT(_MOVE, KC_SPC), LT(_RAISE, KC_ENT),  _______,            _______,            _______,               _______
+    _______, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,               KC_Y,               KC_U,                KC_I,               KC_O,               KC_P,                  _______,
+    KC_BSPC, MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,               KC_H,               MT(MOD_RSFT, KC_J),  MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L), MT(MOD_RGUI, KC_SCLN), KC_QUOT,
+    _______, KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,               KC_N,               KC_M,                KC_COMM,            KC_DOT,             KC_SLSH,               _______,
+    _______, _______,            _______,            _______,            LT(_MOVE, KC_TAB),  LT(_LOWER, KC_SPC), LT(_RAISE, KC_ENT), LT(_SYMBOL, KC_ESC), _______,            _______,            _______,               _______
 ),
 
 [_SYMBOL] = LAYOUT_planck_grid(
