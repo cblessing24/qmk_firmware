@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum planck_layers { _QWERTY, _COLEMAK, _DVORAK, _LOWER, _RAISE, _PLOVER, _ADJUST, _SYMBOL, _MOVE };
+enum planck_layers { _QWERTY, _COLEMAK, _DVORAK, _LOWER, _RAISE, _PLOVER, _ADJUST, _SYM, _NAV, _NUM, _FUN };
 
 enum planck_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, PLOVER, BACKLIT, EXT_PLV, SS_SS, SS_AE, SS_OE, SS_UE };
 
@@ -26,35 +26,38 @@ enum planck_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, PLOVER, BACKLIT, EX
 /* clang-format off */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty
- * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
- * `-----------------------------------------------------------------------------------'
- */
 [_QWERTY] = LAYOUT_planck_grid(
     _______, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,               KC_Y,               KC_U,                KC_I,               KC_O,               KC_P,                  _______,
-    KC_BSPC, MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,               KC_H,               MT(MOD_RSFT, KC_J),  MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L), MT(MOD_RGUI, KC_SCLN), KC_QUOT,
+    _______, MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,               KC_H,               MT(MOD_RSFT, KC_J),  MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L), MT(MOD_RGUI, KC_SCLN), _______,
     _______, KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,               KC_N,               KC_M,                KC_COMM,            KC_DOT,             KC_SLSH,               _______,
-    _______, _______,            _______,            _______,            LT(_MOVE, KC_TAB),  LT(_LOWER, KC_SPC), LT(_RAISE, KC_ENT), LT(_SYMBOL, KC_ESC), _______,            _______,            _______,               _______
+    _______, _______,            _______,            _______,            LT(_NAV, KC_BSPC),  LT(_FUN, KC_TAB), LT(_SYM, KC_ENT), LT(_NUM, KC_SPC), _______,            _______,            _______,               _______
 ),
 
-[_SYMBOL] = LAYOUT_planck_grid(
-    _______, _______, _______, _______, _______, _______, _______, SS_UE,   _______, SS_OE,   _______, _______,
-    _______, SS_AE,   SS_SS,   _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+[_NUM] = LAYOUT_planck_grid(
+    _______, KC_GRV, KC_7, KC_8, KC_9, KC_BSLS, _______, _______, _______, _______, _______, _______,
+    _______, KC_LBRC, KC_4, KC_5, KC_6, KC_RBRC, _______, _______, _______, _______, _______, _______,
+    _______, KC_MINS, KC_1, KC_2, KC_3, KC_EQL, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, KC_0, KC_QUOT, _______, _______, _______, _______, _______, _______
+),
+
+[_SYM] = LAYOUT_planck_grid(
+    _______, KC_TILD, KC_AMPR, KC_ASTR, KC_LPRN, KC_PIPE, _______, _______,   _______, _______,   _______, _______,
+    _______, KC_LCBR, KC_CIRC, KC_PERC, KC_DLR, KC_RCBR, _______, SS_AE, SS_OE, SS_UE, SS_SS, _______,
+    _______, KC_UNDS, KC_EXLM, KC_AT, KC_HASH, KC_PLUS, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, KC_RPRN, LSFT(KC_QUOT), _______, _______, _______, _______, _______, _______
+),
+
+[_FUN] = LAYOUT_planck_grid(
+    _______, KC_F12, KC_F7, KC_F8, KC_F9, _______, _______, _______,   _______, _______,   _______, _______,
+    _______, KC_F11, KC_F4, KC_F5, KC_F6, _______, _______, QK_BOOT, _______, _______, _______, _______,
+    _______, KC_F10, KC_F1, KC_F2, KC_F3, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-[_MOVE] = LAYOUT_planck_grid(
+[_NAV] = LAYOUT_planck_grid(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -169,6 +172,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 /* clang-format on */
+
+const uint16_t PROGMEM esc_combo[] = {LT(_NAV, KC_BSPC), LT(_FUN, KC_TAB), COMBO_END};
+const uint16_t PROGMEM del_combo[] = {LT(_SYM, KC_ENT), LT(_NUM, KC_SPC), COMBO_END};
+combo_t key_combos[] = {
+    COMBO(esc_combo, KC_ESC),
+    COMBO(del_combo, KC_DEL)
+};
 
 #ifdef AUDIO_ENABLE
 float plover_song[][2]    = SONG(PLOVER_SOUND);
