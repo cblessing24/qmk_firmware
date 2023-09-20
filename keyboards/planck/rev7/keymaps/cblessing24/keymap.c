@@ -173,8 +173,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 /* clang-format on */
 
-const uint16_t PROGMEM esc_combo[] = {LT(_NAV, KC_BSPC), LT(_FUN, KC_TAB), COMBO_END};
-const uint16_t PROGMEM del_combo[] = {LT(_SYM, KC_ENT), LT(_NUM, KC_SPC), COMBO_END};
+const uint16_t PROGMEM esc_combo[] = {LT(_NAV, KC_BSPC), LT(_NUM, KC_SPC), COMBO_END};
+const uint16_t PROGMEM del_combo[] = {LT(_FUN, KC_TAB), LT(_SYM, KC_ENT), COMBO_END};
 combo_t key_combos[] = {
     COMBO(esc_combo, KC_ESC),
     COMBO(del_combo, KC_DEL)
